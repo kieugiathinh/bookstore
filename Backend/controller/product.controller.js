@@ -36,7 +36,7 @@ const updateProduct = asyncHandler(async (req, res) => {
   }
 });
 
-//Update Product
+//Delete Product
 const deleteProduct = asyncHandler(async (req, res) => {
   const product = await Product.findByIdAndDelete(req.params.id);
 
@@ -61,7 +61,7 @@ const getProduct = asyncHandler(async (req, res) => {
 });
 
 // Get All Products
-const getAllProduct = asyncHandler(async (req, res) => {
+const getAllProducts = asyncHandler(async (req, res) => {
   const qNew = req.query.new;
   const qCategory = req.query.category;
   const qSearch = req.query.search;
@@ -107,7 +107,7 @@ const ratingProduct = asyncHandler(async (req, res) => {
 
 export {
   ratingProduct,
-  getAllProduct,
+  getAllProducts,
   getProduct,
   createProduct,
   updateProduct,
