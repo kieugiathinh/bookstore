@@ -10,44 +10,57 @@ const ProductSchema = mongoose.Schema({
     type: String,
     require: true,
   },
+
   whatinbox: {
     type: String,
   },
+
   img: {
     type: String,
     require: true,
   },
+
   video: {
     type: String,
   },
+
   wholesalePrice: {
     type: Number,
   },
+
   wholesaleMinimumQuantity: {
     type: Number,
   },
+
   categories: {
     type: Array,
   },
+
   concern: {
     type: Array,
   },
+
   brand: {
     type: String,
   },
+
   skintype: {
     type: Array,
   },
+
   originalPrice: {
     type: Number,
   },
+
   discountedPrice: {
     type: Number,
   },
+
   inStock: {
     type: Boolean,
     default: true,
   },
+
   ratings: [
     {
       star: { type: String },
@@ -57,6 +70,8 @@ const ProductSchema = mongoose.Schema({
     },
   ],
 });
+
+ProductSchema.index({ "$**": "text" });
 
 const Product = mongoose.model("Product", ProductSchema);
 export default Product;
