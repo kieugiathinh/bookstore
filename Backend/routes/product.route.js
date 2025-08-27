@@ -1,7 +1,7 @@
 import express from "express";
 import {
   ratingProduct,
-  getAllProduct,
+  getAllProducts,
   getProduct,
   createProduct,
   updateProduct,
@@ -12,7 +12,7 @@ const router = express.Router();
 //Rating product
 router.put("/rating/:productId", ratingProduct);
 //Get All Products
-router.get("/", getAllProduct);
+router.get("/", getAllProducts);
 //Get Product
 router.get("/find/:id", getProduct);
 //Create Product

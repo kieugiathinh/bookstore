@@ -1,4 +1,3 @@
-import e from "express";
 import Product from "../models/product.model.js";
 import asyncHandler from "express-async-handler";
 
@@ -36,7 +35,7 @@ const updateProduct = asyncHandler(async (req, res) => {
   }
 });
 
-//Update Product
+//Delete Product
 const deleteProduct = asyncHandler(async (req, res) => {
   const product = await Product.findByIdAndDelete(req.params.id);
 
@@ -61,7 +60,7 @@ const getProduct = asyncHandler(async (req, res) => {
 });
 
 // Get All Products
-const getAllProduct = asyncHandler(async (req, res) => {
+const getAllProducts = asyncHandler(async (req, res) => {
   const qNew = req.query.new;
   const qCategory = req.query.category;
   const qSearch = req.query.search;
@@ -81,6 +80,7 @@ const getAllProduct = asyncHandler(async (req, res) => {
     });
   } else {
     products = await Product.find().sort({ createAt: -1 });
+    res.status(200).json(products);
   }
 });
 
@@ -107,7 +107,7 @@ const ratingProduct = asyncHandler(async (req, res) => {
 
 export {
   ratingProduct,
-  getAllProduct,
+  getAllProducts,
   getProduct,
   createProduct,
   updateProduct,
