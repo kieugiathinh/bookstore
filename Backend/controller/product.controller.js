@@ -1,4 +1,3 @@
-import e from "express";
 import Product from "../models/product.model.js";
 import asyncHandler from "express-async-handler";
 
@@ -81,6 +80,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
     });
   } else {
     products = await Product.find().sort({ createAt: -1 });
+    res.status(200).json(products);
   }
 });
 
