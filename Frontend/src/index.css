@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for Typewriter component */
+.typewriter-text {
+  color: white !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+}
+
+/* Override any default styles that might interfere */
+.typewriter-text * {
+  color: white !important;
+}
