@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+/* Fix for react-simple-star-rating to display horizontally */
+.react-simple-star-rating {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+}
+
+.react-simple-star-rating svg {
+  display: inline-block !important;
+  margin-right: 2px !important;
+}
