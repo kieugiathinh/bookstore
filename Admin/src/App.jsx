@@ -3,6 +3,8 @@ import Menu from "./components/Menu.jsx";
 import Home from "./pages/Home.jsx";
 import Users from "./pages/Users.jsx";
 import Products from "./pages/Products.jsx";
+import Orders from "./pages/Orders.jsx";
+import Banners from "./pages/Banners.jsx";
 
 function App() {
   const Layout = () => {
@@ -35,6 +37,14 @@ function App() {
         {
           path: "/products",
           element: <Products />,
+        },
+        {
+          path: "/orders",
+          element: <Orders />,
+        },
+        {
+          path: "/banners",
+          element: <Banners />,
         },
       ],
     },
