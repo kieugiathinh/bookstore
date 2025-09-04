@@ -5,7 +5,7 @@ const Home = () => {
     <div className="flex justify-between h-screen p-2 bg-gray-200 w-[77vw]">
       {/* left  */}
       <div className="flex flex-col w-2/3">
-        <div className="flex w-[500vw]">
+        <div className="flex w-[50vw]">
           <div className="bg-white h-52 w-52 m-5 shadow-xl rounded-lg flex flex-col items-center justify-center">
             <div className="h-32 w-32 m-5 border-[10px] border-blue-400 border-solid rounded-full flex items-center justify-center">
               <h2 className="font-bold text-2xl">131</h2>
