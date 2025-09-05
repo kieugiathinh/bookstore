@@ -7,7 +7,7 @@ const Banners = () => {
       <div className="mr-[50px]">
         <h2 className="text-xl font-semibold mb-4">Active Banners</h2>
 
-        <div className="flex flex-col space-y-4">
+        <div className="flex flex-col space-y-4  w-[500px]">
           <div className="flex items-center justify-between border-b border-gray-200 pb-4">
             <img
               src="https://images.pexels.com/photos/46274/pexels-photo-46274.jpeg"
