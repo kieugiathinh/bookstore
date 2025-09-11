@@ -1,7 +1,24 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { FaTrash } from "react-icons/fa";
+import { userRequest } from "../requestMethods";
+import { useEffect, useState } from "react";
 
 const Users = () => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const res = await userRequest.get("/users");
+        setUsers(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getUsers();
+  }, []);
+
   const columns = [
     {
       field: "_id",
@@ -42,44 +59,6 @@ const Users = () => {
     },
   ];
 
-  const data = [
-    {
-      _id: "u101",
-      name: "Gia Thinh",
-      email: "giathinh@gmail.com",
-      phone: "0339601263",
-      role: "Admin",
-    },
-    {
-      _id: "u102",
-      name: "Van Hung",
-      email: "vanhung@gmail.com",
-      phone: "0901234567",
-      role: "User",
-    },
-    {
-      _id: "u103",
-      name: "Hong Ngoc",
-      email: "hongngoc@gmail.com",
-      phone: "0912345678",
-      role: "User",
-    },
-    {
-      _id: "u104",
-      name: "Quoc Cuong",
-      email: "quoccuong@gmail.com",
-      phone: "0923456789",
-      role: "User",
-    },
-    {
-      _id: "u105",
-      name: "Minh Thu",
-      email: "minhthu@gmail.com",
-      phone: "0934567890",
-      role: "User",
-    },
-  ];
-
   return (
     <div className="p-5 w-[70vw]">
       <div className="flex items-center justify-between m-[30px]">
@@ -93,7 +72,7 @@ const Users = () => {
       <div className="m-[30px]">
         <DataGrid
           getRowId={(row) => row._id}
-          rows={data}
+          rows={users}
           checkboxSelection
           columns={columns}
         />
