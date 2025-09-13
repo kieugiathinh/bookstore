@@ -1,4 +1,5 @@
 import { FaMinus, FaPlus } from "react-icons/fa";
+import { Rating } from "react-simple-star-rating";
 
 const Product = () => {
   return (
@@ -22,7 +23,21 @@ const Product = () => {
           để biến suy nghĩ đó thành hiện thực.
         </span>
         <h2 className="font-semibold mt-2 text-[20px]">150 000 VNĐ</h2>
-        <span>Đánh giá</span>
+        <span>
+          <Rating
+            initialValue={2.403}
+            size={25}
+            fillColor="yellow"
+            emptyColor="#d1d5db"
+            allowFraction={true}
+            readonly={true}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          />
+        </span>
 
         <div className="h-52 w-96 border-2 border-gray-300 rounded-lg shadow-md my-4 p-6 ">
           <h2 className="flex items-center justify-center font-semibold text-lg text-gray-700 mb-4">
@@ -53,12 +68,36 @@ const Product = () => {
         <div className="flex flex-col">
           <h2 className="font-semibold text-[18px]">Reviews</h2>
           <div className="flex items-center ">
-            Đánh giá
+            <Rating
+              initialValue={2.403}
+              size={25}
+              fillColor="yellow"
+              emptyColor="#d1d5db"
+              allowFraction={true}
+              readonly={true}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            />
             <span className="font-semibold mx-[20px]">GiaThinh</span>
           </div>
 
           <div className="flex items-center ">
-            Đánh giá
+            <Rating
+              initialValue={4.5}
+              size={25}
+              fillColor="yellow"
+              emptyColor="#d1d5db"
+              allowFraction={true}
+              readonly={true}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            />
             <span className="font-semibold mx-[20px]">LiuLiu</span>
           </div>
         </div>
