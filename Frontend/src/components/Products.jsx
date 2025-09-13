@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { Rating } from "react-simple-star-rating";
 import PropTypes from "prop-types";
+import { userRequest } from "../requestMethods.js";
+import { Link } from "react-router-dom";
+import Product from "../components/Product.jsx";
 
 const Products = ({ filters, sort, query }) => {
   const [products, setProducts] = useState([]);
@@ -53,125 +55,23 @@ const Products = ({ filters, sort, query }) => {
 
   return (
     <div className="flex flex-4 mx-[10px]">
-      <div className="flex flex-col items-center justify-center h-[500px] m-[20px] cursor-pointer">
-        <img
-          src="/tieuthuyet1.jpg"
-          alt=""
-          className="h-[400px] w-[400px] bg-cover"
-        />
+      {filteredProducts.map((product, index) => (
+        <Link to={`/product/${product._id}`} key={index}>
+          {/* <div className="flex flex-col items-center justify-center h-[500px] w-[250px] m-[20px] cursor-pointer">
+            <img
+              src={product.img}
+              alt=""
+              className="h-[400px] w-[400px] object-cover"
+            />
+            <h2 className="font-semibold text-[18px]">{product.title}</h2>
+            {product && product?.ratings && product?.ratings.length > 0
+              ? showAverage(product)
+              : ""}
+          </div> */}
 
-        <h2 className="font-semibold text-[18px]">
-          Mắt biếc - Nguyễn Nhật Ánh
-        </h2>
-
-        <span className="text-[18px] font-semibold flex item justify-center">
-          50 000 VNĐ
-        </span>
-
-        <Rating
-          initialValue={2.403}
-          size={25}
-          fillColor="yellow"
-          emptyColor="#d1d5db"
-          allowFraction={true}
-          readonly={true}
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        />
-      </div>
-
-      <div className="flex flex-col items-center justify-center h-[500px] m-[20px] cursor-pointer">
-        <img
-          src="/tieuthuyet1.jpg"
-          alt=""
-          className="h-[400px] w-[400px] bg-cover"
-        />
-
-        <h2 className="font-semibold text-[18px]">
-          Mắt biếc - Nguyễn Nhật Ánh
-        </h2>
-
-        <span className="text-[18px] font-semibold flex item justify-center">
-          50 000 VNĐ
-        </span>
-
-        <Rating
-          initialValue={2.403}
-          size={25}
-          fillColor="yellow"
-          emptyColor="#d1d5db"
-          allowFraction={true}
-          readonly={true}
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        />
-      </div>
-
-      <div className="flex flex-col items-center justify-center h-[500px] m-[20px] cursor-pointer">
-        <img
-          src="/tieuthuyet1.jpg"
-          alt=""
-          className="h-[400px] w-[400px] bg-cover"
-        />
-
-        <h2 className="font-semibold text-[18px]">
-          Mắt biếc - Nguyễn Nhật Ánh
-        </h2>
-
-        <span className="text-[18px] font-semibold flex item justify-center">
-          50 000 VNĐ
-        </span>
-
-        <Rating
-          initialValue={2.403}
-          size={25}
-          fillColor="yellow"
-          emptyColor="#d1d5db"
-          allowFraction={true}
-          readonly={true}
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        />
-      </div>
-
-      <div className="flex flex-col items-center justify-center h-[500px] m-[20px] cursor-pointer">
-        <img
-          src="/tieuthuyet1.jpg"
-          alt=""
-          className="h-[400px] w-[400px] bg-cover"
-        />
-
-        <h2 className="font-semibold text-[18px]">
-          Mắt biếc - Nguyễn Nhật Ánh
-        </h2>
-
-        <span className="text-[18px] font-semibold flex item justify-center">
-          50 000 VNĐ
-        </span>
-
-        <Rating
-          initialValue={2.403}
-          size={25}
-          fillColor="yellow"
-          emptyColor="#d1d5db"
-          allowFraction={true}
-          readonly={true}
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        />
-      </div>
+          <Product img={product.img} title={product.title} />
+        </Link>
+      ))}
     </div>
   );
 };
