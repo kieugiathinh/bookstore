@@ -54,7 +54,7 @@ const Products = ({ filters, sort, query }) => {
   }, [products, filters, sort]);
 
   return (
-    <div className="flex flex-4 mx-[10px]">
+    <div className="flex flex-wrap mx-[10px]">
       {filteredProducts.map((product, index) => (
         <Link to={`/product/${product._id}`} key={index}>
           {/* <div className="flex flex-col items-center justify-center h-[500px] w-[250px] m-[20px] cursor-pointer">

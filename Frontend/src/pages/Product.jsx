@@ -1,13 +1,69 @@
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { Rating } from "react-simple-star-rating";
+import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { userRequest } from "../requestMethods";
 
 const Product = () => {
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+  const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
+
+  let price;
+  const handleQuantity = (action) => {
+    if (action === "dec") {
+      setQuantity(quantity === 1 ? 1 : quantity - 1);
+    }
+
+    if (action === "inc") {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await userRequest.get("/products/find/" + id);
+        setProduct(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getProduct();
+  }, [id]);
+
+  const handlePrice = (
+    originalPrice,
+    discountedPrice,
+    wholePrice,
+    minimumQuantity,
+    quantity
+  ) => {
+    if (quantity > minimumQuantity && discountedPrice) {
+      discountedPrice = wholePrice;
+      price = discountedPrice;
+      return price;
+    } else if (quantity > minimumQuantity && originalPrice) {
+      originalPrice = wholePrice;
+      price = originalPrice;
+      return price;
+    } else if (discountedPrice) {
+      price = discountedPrice;
+      return price;
+    } else {
+      price = originalPrice;
+      return price;
+    }
+  };
+
   return (
     <div className="flex justify-stretch p-[30px] h-auto">
       {/* Left */}
       <div className="flex-1 h-[500px] w-[600px]">
         <img
-          src="/tieuthuyet1.jpg"
+          src={product.img}
           alt=""
           className="h-[100%] w-[100%] object-cover"
         />
@@ -15,14 +71,17 @@ const Product = () => {
 
       {/* Right */}
       <div className="flex flex-1 flex-col ml-10">
-        <h2 className="text-[25px] font-semibold mb-[20px]">Mắt biếc</h2>
-        <span>
-          Nói tóm lại, thông điệp chính của cuốn sách là: Mọi thành công đều bắt
-          đầu từ một ý nghĩ. Nếu bạn muốn giàu có và thành công, bạn phải bắt
-          đầu bằng cách "nghĩ giàu" trước, sau đó áp dụng những nguyên tắc trên
-          để biến suy nghĩ đó thành hiện thực.
-        </span>
-        <h2 className="font-semibold mt-2 text-[20px]">150 000 VNĐ</h2>
+        <h2 className="text-[25px] font-semibold mb-[20px]">{product.title}</h2>
+        <span>{product.desc}</span>
+        <h2 className="font-semibold mt-2 text-[20px]">
+          {handlePrice(
+            product.originalPrice,
+            product.discountedPrice,
+            product.wholesalePrice,
+            product?.wholesaleMinimumQuantity,
+            quantity
+          )}
+        </h2>
         <span>
           <Rating
             initialValue={2.403}
@@ -45,18 +104,25 @@ const Product = () => {
           </h2>
           <hr className="mb-4" />
           <span className="block text-gray-600 text-base text-[18px]">
-            Tác giả: Napoleon Hill
+            {product.title}
           </span>
         </div>
 
         <div className="inline-flex items-center bg-[#ef93db] text-white font-semibold text-sm p-3 rounded-full shadow-md">
-          KieuGiaThinh
+          Giá sỉ: {product.wholesalePrice} khi mua từ{" "}
+          {product.wholesaleMinimumQuantity} sản phẩm trở lên.
         </div>
 
         <div className="flex items-center my-5 p-4">
-          <FaMinus className="bg-[#ef93db] text-white cursor-pointer p-2 rounded-full mr-4 text-3xl" />
-          <span className="text-lg font-semibold">1</span>
-          <FaPlus className="bg-[#ef93db] text-white cursor-pointer p-2 rounded-full ml-4 text-3xl" />
+          <FaMinus
+            className="bg-[#ef93db] text-white cursor-pointer p-2 rounded-full mr-4 text-3xl"
+            onClick={() => handleQuantity("dec")}
+          />
+          <span className="text-lg font-semibold">{quantity}</span>
+          <FaPlus
+            className="bg-[#ef93db] text-white cursor-pointer p-2 rounded-full ml-4 text-3xl"
+            onClick={() => handleQuantity("inc")}
+          />
         </div>
 
         <button className="bg-[#1e1e1e] p-[10px] w-[200px] text-white cursor-pointer">
