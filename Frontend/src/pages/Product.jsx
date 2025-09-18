@@ -3,12 +3,18 @@ import { Rating } from "react-simple-star-rating";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { userRequest } from "../requestMethods";
+import { useDispatch, useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { addProduct } from "../redux/cartRedux";
 
 const Product = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
 
   let price;
   const handleQuantity = (action) => {
@@ -58,8 +64,43 @@ const Product = () => {
     }
   };
 
+  const handleAddToCart = () => {
+    dispatch(
+      addProduct({
+        ...product,
+        quantity,
+        price,
+        email: "kieuthinh13012004@gmail.com",
+      })
+    );
+
+    toast.success("Product has been added to basket successfully", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
+    console.log(cart);
+  };
+
   return (
     <div className="flex justify-stretch p-[30px] h-auto">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+
       {/* Left */}
       <div className="flex-1 h-[500px] w-[600px]">
         <img
@@ -125,7 +166,10 @@ const Product = () => {
           />
         </div>
 
-        <button className="bg-[#1e1e1e] p-[10px] w-[200px] text-white cursor-pointer">
+        <button
+          className="bg-[#1e1e1e] p-[10px] w-[200px] text-white cursor-pointer"
+          onClick={handleAddToCart}
+        >
           Add to cart
         </button>
 
