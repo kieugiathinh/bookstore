@@ -66,6 +66,7 @@ const NewProduct = () => {
       setUploading("Uploading failed");
     }
   };
+
   return (
     <div className="p-5">
       <div className="flex items-center justify-center mb-5">

@@ -75,13 +75,13 @@ const getAllProducts = asyncHandler(async (req, res) => {
       $text: {
         $search: qSearch,
         $caseSensitive: false,
-        $dicriticSensitive: false,
+        $diacriticSensitive: false,
       },
     });
   } else {
     products = await Product.find().sort({ createAt: -1 });
-    res.status(200).json(products);
   }
+  res.status(200).json(products);
 });
 
 //Rating Product
