@@ -3,9 +3,11 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import Badge from "@mui/material/Badge";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
+  const cart = useSelector((state) => state.cart);
 
   return (
     <div className="flex items-center justify-between h-[100px] shadow-md px-6 bg-white">
@@ -31,7 +33,7 @@ const Navbar = () => {
       <div className="flex items-center">
         <Link to="/cart">
           <div className="mr-[20px] cursor-pointer">
-            <Badge badgeContent={2} color="secondary">
+            <Badge badgeContent={cart.quantity} color="secondary">
               <ShoppingBasketIcon className="text-pink-500" />
             </Badge>
           </div>
