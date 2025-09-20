@@ -1,9 +1,13 @@
 import { FaMinus, FaPlus, FaTrashAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart, removeProduct } from "../redux/cartRedux";
+import { userRequest } from "../requestMethods";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const handleRemoveProduct = (product) => {
@@ -14,8 +18,40 @@ const Cart = () => {
     dispatch(clearCart());
   };
 
+  const handleCheckout = async () => {
+    if (user.currentUser) {
+      try {
+        const res = await userRequest.post("/stripe/create-checkout-session", {
+          cart,
+          userId: user.currentUser._id,
+          email: user.currentUser.email,
+          name: user.currentUser.name,
+        });
+
+        if (res.data.url) {
+          window.location.href = res.data.url;
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    } else {
+      toast.error("Please login to proceed to checkout");
+    }
+  };
+
   return (
     <div className="min-h-screen p-8">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <h2 className="text-[18px] font-semibold mb-6">Shopping Cart</h2>
       <div className="flex gap-8">
         {/* left  */}
@@ -88,7 +124,10 @@ const Cart = () => {
               <span className="text-lg font-medium">{cart.total}</span>
             </div>
 
-            <button className="bg-[#ef93db] text-white p-3 w-full rounded-lg font-semibold cursor-pointer">
+            <button
+              className="bg-[#ef93db] text-white p-3 w-full rounded-lg font-semibold cursor-pointer"
+              onClick={handleCheckout}
+            >
               Proceed to checkout
             </button>
           </div>
