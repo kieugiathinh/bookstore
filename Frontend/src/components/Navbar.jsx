@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 const Navbar = () => {
   const [search, setSearch] = useState("");
   const cart = useSelector((state) => state.cart);
+  const user = useSelector((state) => state.user);
 
   return (
     <div className="flex items-center justify-between h-[100px] shadow-md px-6 bg-white">
@@ -42,9 +43,17 @@ const Navbar = () => {
         <Link to="/login">
           <div className="flex items-center space-x-2 border border-pink-300 p-2 rounded-lg hover:bg-pink-100 duration-300 cursor-pointer">
             <FaUser className="text-[#e455c5] hover:text-pink-600 transition duration-300" />
-            <span className="text-[#e455c5] hover:text-pink-600 font-semibold">
-              Login
-            </span>
+            {!user.currentUser ? (
+              <span className="text-[#e455c5] hover:text-pink-600 font-semibold">
+                Login
+              </span>
+            ) : (
+              <Link to="/myaccount">
+                <span className="text-[#e455c5] hover:text-pink-600 transition duration-300 font-semibold">
+                  {user.currentUser.name}
+                </span>
+              </Link>
+            )}
           </div>
         </Link>
       </div>

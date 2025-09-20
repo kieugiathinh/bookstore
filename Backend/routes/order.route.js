@@ -14,7 +14,8 @@ router.post("/", createOrder);
 // Update Order Route
 router.put("/:id", updateOrder);
 // Get All Orders Route
-router.get("/", protect, getAllOrders);
+// router.get("/", protect, getAllOrders);
+router.get("/", getAllOrders);
 // Delete Order Route
 router.delete("/:id", deleteOrder);
 // Get User's Order Route
